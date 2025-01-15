@@ -1,0 +1,28 @@
+{
+    "enzyme dataset": "xylanase",
+    "acknowledgements":{
+        "note": "This dataset was provided by the Sarel Fleishman Lab from the Weizmann Institute of Science.",
+        "preferred citation": "Listov, D.; Lipsh-Sokolik, R.; Rosset, S.; Yang, C.; Correia, B. E.; Fleishman, S. J. Assessing and Enhancing Foldability in Designed Proteins. Protein Sci. 2022, 31 (9), e4400.",
+        "method": "in silico",
+        "strategy": "zero-shot",
+        "data source": {
+            "source": "This dataset was provided by the Sarel Fleishman Lab from the Weizmann Institute of Science.",
+        },
+    },
+    "annotations": {
+        "additional documentation and resources": "None",
+        "challenge problem": "Given the sequence, please predict how well the enzyme expresses. Your prediction should be a classification (0=No expression, 0.5=Low expression, 1=Good expression). The range of scoring is arbitrary.",
+    },
+    "data":
+    {
+        "sequence length": "Not given",
+        "mutations": "Not given",
+        "classification": "Not given",
+        "ec number": "Not given",
+        "pdb xtal structure": "Not given",
+        "expression system": "Escherichia coli BL21",
+        "organism": "Not given",
+        "target sequence": "Not given",
+        "protocol details": "The designs were ordered as a synthetic gene fragment from Twist Bioscience with addition of a C-terminal 6-His-Tag and cloned into a pET11b vector using NdeI and BlpI restriction sites. Fifty milliliters of 2YT with 50 μg ml-1 kanamycin was inoculated with 500 μl overnight culture and grown at 37°C to OD of 0.4–0.8. Overexpression was induced by 0.2 mM isopropylthio-β-galactoside and the cultures were grown for ~20 hr at 20°C. Bacteria were pelleted by centrifugation and frozen for at least 20 min before purification.Pellets were resuspended in lysis buffer (50 mM Tris-Cl pH 6.5, 150 mM NaCl, benzonase and 0.1 mg ml−1 lysozyme) and lysed by sonication. The supernatant was loaded on a column packed with amylose resin (New England Biolabs), washed twice with 50 mM Tris pH 6.5 and 150 mM NaCl, and eluted with wash buffer containing 10 mM maltose. Protein purity was evaluated by SDS-PAGE gel and protein concentration was estimated by OD280.",
+    }
+}

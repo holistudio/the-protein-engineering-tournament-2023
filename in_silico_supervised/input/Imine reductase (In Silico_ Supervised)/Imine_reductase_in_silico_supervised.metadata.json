@@ -1,0 +1,28 @@
+{
+    "enzyme dataset": "Imine reductase",
+    "acknowledgements":{
+        "preferred citation": "F. van der Flier, D. Estell, S. Pricelius, L. Dankmeyer, S. van Stigt Thans, H. Mulder, R. Otsuka, F. Goedegebuur, L. Lammerts, D. Staphorst, A.D.J. van Dijk, D. de Ridder and H. Redestig. Preprint bioRxiv 2023. https://www.biorxiv.org/content/10.1101/2023.09.25.559319v1",
+        "method": "in silico",
+        "strategy": "supervised",
+        "data source": {
+            "source": "Disclosure of this dataset has been approved and provided by Codexis.",
+        },
+    },
+    "annotations": {
+        "additional documentation and resources": "NONE",
+        "challenge problem": "Score the fold improvement over positive control (FIOP) of activity. The range of scoring is arbitrary.",
+        "note": "Any “*” wildcards should only be present in the amino acid translation and represent a stop codon.   Any amino acids downstream of the “*” is not expected to be produced by the expression host.",
+    },
+    "data":
+    {
+        "sequence length": "Not given",
+        "mutations": "Not given",
+        "classification": "oxidoreductase",
+        "ec number": "Not given",
+        "pdb xtal structure": "4D3S",
+        "expression system": "Escherichia coli",
+        "organism": "Nocardiopsis halophila",
+        "target sequence": "Not given",
+        "substrate used in specific activity measurement": "IRED",
+    }
+}

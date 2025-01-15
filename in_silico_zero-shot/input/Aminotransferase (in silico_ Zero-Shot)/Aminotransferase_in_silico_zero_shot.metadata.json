@@ -1,0 +1,28 @@
+{
+    "enzyme dataset": "aminotransferase",
+    "acknowledgements":{
+        "note": "We thank Prof. Dr. U.T. Bornscheuer and M.Sc. M. J. Menke from the University of Greifswald, Dept. of Biotechnology & Enzyme Catalysis for contributing a dataset on activity data of transaminase-catalyzed conversion of bulky substrates to our Protein Engineering Tournament.",
+        "preferred citation": "Menke, M. J.; Bornscheuer, U. T. Activity data of quadruple mutants of 3FCR_4M transaminase for bulky substrates. 2023",
+        "method": "in silico",
+        "strategy": "zero-shot",
+        "data source": {
+            "source": "Menke, M. J.; Bornscheuer, U. T. Activity data of quadruple mutants of 3FCR_4M transaminase for bulky substrates. 2023",
+        },
+    },
+    "annotations": {
+        "additional documentation and resources": "Transaminase engineering based on related data: „Ao, Y.-F.; Pei, S.; Xiang, C.; Menke, M. J.; Shen, L.; Sun, C.; Dӧrr, M.; Born, S.; Hӧhne, M.; Bornscheuer, U. T. Structure- and data-driven protein engineering of transaminases for improving activity and stereoselectivity. Angew. Chem. Int. Ed. 2023, 62, e20230166“. The 3DM tool to plan the mutations: „Kuipers, R.K.P., Joosten, H.-J., Verwiel, E., Paans, S., Akerboom, J., van der Oost, J., Leferink, N.G.H., van Berkel, W.J.H., Vriend, G. and Schaap, P.J. (2009), Correlated mutation analyses on super-family alignments reveal functionally important residues. Proteins, 76: 608-616. https://doi.org/10.1002/prot.22374“",
+        "challenge problem": "Score how active you predict each variant is for each of the three substrates (e.g. log probabilities). The range of scoring is arbitrary.",
+    },
+    "data":
+    {
+        "sequence length": 466,
+        "mutations": "yes",
+        "classification": "transferase",
+        "ec number": "EC 2.6.1.-",
+        "pdb xtal structure": "3FCR",
+        "expression system": "Escherichia coli",
+        "organism": "Ruegeria sp. TM1040",
+        "target sequence": "MLKNDQLDQWDRDNFFHPSTHLAQHARGESANRVIKTASGVFIEDRDGTKLLDAFAGLWCVNVGYGRQEIAEAIADQARELAYYHSFVGHGTEASITLAKMILDRAPKNMSKVYFGLGGSDANETNVKLIWYYNNILGRPEKKKIISRWRGFHGSGLVTGSLTGLELFHKKFDLPVEQVIHTEAPYYFRREDLNQTEEQFVAHCVAELEALIEREGADTIAAFIGEPILGAGGIVPPPAGYWEAIQTVLNKHDILLVADEVVTGFGRLGTMFGSDHYGLEPDIITIAKGLTSAYAPLSGSIVSDKVWKVLEQGTDENGPIGHGWTYSAHPIGAAAGVANLKLLDELNLVSNAGEVGAYLNATMAEALSQHANVGDVRGEGLLCAVEFVKDRDSRTFFDAADKIGPQISAKLLEQDKIIARAMPQGDILGFAPPFCLTRAEADQVVEGTLRAVKAVLGSLEHHHHHH",
+        "substrate used in specific activity measurement": "Amino Donors: S-Phenylethylamine, (4-Chlorophenyl)phenylmethanamine, 1,3-Diphenyl-propane-1-amine",
+    }
+}

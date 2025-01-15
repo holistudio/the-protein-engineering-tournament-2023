@@ -1,0 +1,35 @@
+{
+    "enzyme dataset": "alpha-Amylase",
+    "acknowledgements":{
+        "preferred citation": "F. van der Flier, D. Estell, S. Pricelius, L. Dankmeyer, S. van Stigt Thans, H. Mulder, R. Otsuka, F. Goedegebuur, L. Lammerts, D. Staphorst, A.D.J. van Dijk, D. de Ridder and H. Redestig. Preprint bioRxiv 2023. https://www.biorxiv.org/content/10.1101/2023.09.25.559319v1",
+        "method": "in silico",
+        "strategy": "supervised",
+        "data source": {
+            "source": "L. G. Cascao-Pereira, R. Chin, W. A. Cuevas, D. A. Estell, S.-K. Lee, M. J. Pepsin, S. D. Power, S. W. Ramer, C. A. Requadt, A. Shaw, A. R. Toppozada, and L. Wallace, 'Uses of an alpha-amylase from bacillus subtilis.'  European Patent Application, Ep 2.698,434 (A1), Aug 2014.",
+            "source": "L. G. Cascao-Pereira, W. A. Cuevas, D. A. Estell, S.-K. Lee, S. D. Power, S. W. Ramer, A. Toppozada, and L. Wallace, 'Variant alpha-amylases from bacillus subtilis and methods of uses thereof.' US Patent, US 8,323,945 (B2), Dec 2012.",
+            "source": "L. G. Cascao-Pereira, W. A. Cuevas, D. A. Estell, S.-K. Lee, S. D. Power, S. W. Ramer, A. Toppozada, and L. Wallace, 'Variant alpha-amylases from bacillus subtilis and methods of uses thereof.' US Patent, US 8,975,056 (B2), Mar 2015.",
+            "source": "W. A. Cuevas, S.-K. Lee, S. W. Ramer, A. Shaw, A. R. Toppozada, D. E. Estell, L. Wallace, R. Chin, C. A. Requadt, S. D. Power, and M. J. Pepsin, 'Variant alpha-amylases from bacillus subtilis and methods of use thereof.' US Patent, US 9,090,887 (B2), Jul 2015.",
+            "source": "F. van der Flier, D. Estell, S. Pricelius, L. Dankmeyer, S. van Stigt Thans, H. Mulder, R. Otsuka, F. Goedegebuur, L. Lammerts, D. Staphorst, A.D.J. van Dijk, D. de Ridder and H. Redestig. Preprint bioRxiv 2023. https://www.biorxiv.org/content/10.1101/2023.09.25.559319v1",
+        },
+    },
+    "annotations": {
+        "additional documentation and resources": "NONE",
+        "challenge problem": "Score the following three properties: 1) specific activity, 2) expression, 3) thermostability for each variant (e.g. log probabilities). The range of scoring is arbitrary.",
+        "definition of specific activity performance index": "The ratio of the specific activity of the variant to that of the reference. Specific activity is the ratio between activity and the measured protein concentration.",
+        "definition of expression performance index": "Ratio of the value of total amount of secreted protein (not only target protein) of variant to the reference (e.g., wildtype) (higher is better).",
+        "definition of thermostability performance index": "The ratio of the residual activity of the variant to that of the reference. Residual activity is the ratio between the activity of an unstressed sample and a stressed sample. (higher is better).",
+        "note": "We had a question about the meaning of the “dataset” column. The data was collected under two slightly different conditions. All of the testing data comes from the dataset labeled #2. The dataset labeled #1 provides extra data that you may or may not want to use.",
+    },
+    "data":
+    {
+        "sequence length": 425,
+        "mutations": "yes",
+        "classification": "hydrolase",
+        "ec number": "EC 3.2.1.1",
+        "pdb xtal structure": "IUA7",
+        "expression system": "Bacillus subtilis",
+        "organism": "Bacillus subtilis",
+        "target sequence": "LTAPSIKSGTILHAWNWSFNTLKHNMKDIHDAGYTAIQTSPINQVKEGNQGDKSMSNWYWLYQPTSYQIGNRYLGTEQEFKEMCAAAEEYGIKVIVDAVINHTTSDYAAISNEVKSIPNWTHGNTPIKNWSDRWDVTQNSLSGLYDWNTQNTQVQSYLKRFLDRALNDGADGFRFDAAKHIELPDDGSYGSQFWPNITNTSAEFQYGEILQDSVSRDAAYANYMDVTASNYGHSIRSALKNRNLGVSNISHYAVDVSADKLVTWVESHDTYANDDEESTWMSDDDIRLGWAVIASRSGSTPLFFSRPEGGGNGVRFPGKSQIGDRGSALFEDQAITAVNRFHNVMAGQPEELSNPNGNNQIFMNQRGSHGVVLANAGSSSVSINTATKLPDGRYDNKAGAGSFQVNDGKLTGTINARSVAVLYPD",
+        "substrate used in specific activity measurement": "RBB-corn starch substrate (https://www.sigmaaldrich.com/FR/fr/product/sigma/s7776)",
+    }
+}

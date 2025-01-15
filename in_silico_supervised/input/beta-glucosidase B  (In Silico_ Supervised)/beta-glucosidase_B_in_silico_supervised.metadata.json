@@ -1,0 +1,32 @@
+{
+    "enzyme dataset": "Beta Glucosidase B",
+    "acknowledgements":{
+        "preferred citation": "D2D Database. 2018-. University of California, Davis: Design to Data. [updated 2024 Feb 15; accessed Apr 2023]. https://d2dcure.com/data/?protein=BglB",
+        "method": "in silico",
+        "strategy": "supervised",
+        "data source": {
+            "source": "This data set was produced by students and faculty members of the Design to Data (D2D) undergraduate research program, led by Ashley Vater and Professor Justin B. Siegel at University of California, Davis.
+",
+        },
+    },
+    "annotations": {
+        "additional documentation and resources": "	•	Vater, A., Mayoral, J., Nunez-Castilla, J., Labonte, J. W., Briggs, L. A., Gray, J. J., ... & Siegel, J. B. (2020). Development of a broadly accessible, computationally guided biochemistry course-based undergraduate research experience. Journal of Chemical Education, 98(2), 400-409, Huang, P., Chu, S. K., Frizzo, H. N., Connolly, M. P., Caster, R. W., & Siegel, J. B. (2020). Evaluating protein engineering thermostability prediction tools using an independently generated dataset. ACS omega, 5(12), 6487-6493., Carlin, D. A., Hapig-Ward, S., Chan, B. W., Damrau, N., Riley, M., Caster, R. W., ... & Siegel, J. B. (2017). Thermal stability and kinetic constants for 129 variants of a family 1 glycoside hydrolase reveal that enzyme activity and stability can be separately designed. PLoS One, 12(5), e0176255.",
+        "challenge problem": "Score each of the following three properties: 1) expression, 2) activity, and 3) melting point. The range of scoring is arbitrary.",
+        "note": "Although the training data included an expression column, the test data was from a previously unpublished source that did not include expression data. The request to predict expression was an oversight by the tournament committee, and due to this, the teams were not judged on expression predictions.",
+    },
+    "data":
+    {
+        "sequence length": 445,
+        "mutations": "yes",
+        "classification": "hydrolase",
+        "ec number": "EC 3.2.1.21",
+        "pdb xtal structure": "2O9P",
+        "expression system": "Escherichia coli",
+        "UniProt Number": "P22505",
+        "Molar Mass": "51,573 Da",
+        "Extinction Coefficient": "113,330 M-1cm-1",
+        "organism": "Paenibacillus polymyxa",
+        "target sequence": "NTFIFPATFMWGTSTSSYQIEGGTDEGGRTPSIWDTFCQIPGKVIGGDCGDVACDHFHHFKEDVQLMKQLGFLHYRFSVAWPRIMPAAGIINEEGLLFYEHLLDEIELAGLIPMLTLYHWDLPQWIEDEGGWTQRETIQHFKTYASVIMDRFGERINWWNTINEPYCASILGYGTGEHAPGHENWREAFTAAHHILMCHGIASNLHKEKGLTGKIGITLNMEHVDAASERPEDVAAAIRRDGFINRWFAEPLFNGKYPEDMVEWYGTYLNGLDFVQPGDMELIQQPGDFLGINYYTRSIIRSTNDASLLQVEQVHMEEPVTDMGWEIHPESFYKLLTRIEKDFSKGLPILITENGAAMRDELVNGQIEDTGRHGYIEEHLKACHRFIEEGGQLKGYFVWSFLDNFEWAWGYSKRFGIVHINYETQERTPKQSALWFKQMMAKNGF",
+        "substrate used in specific activity measurement": "para-nitrophenyl-β-d-glucopyranose (pNPG)",
+    }
+}
