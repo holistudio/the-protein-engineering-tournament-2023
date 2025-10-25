@@ -5,13 +5,9 @@ from load_data import ProcessedDatasets
 
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu:0')
 
-train_ds = ProcessedDatasets().train
-test_ds = ProcessedDatasets().test
-vocab_size = ProcessedDatasets().vocab_size
+torch.manual_seed(1337)
 
 GPT_CONFIG = {
-    "vocab_size": vocab_size, # Vocabulary size
-    "context_length": train_ds.input_seq.shape[1], # Context length
     "emb_dim": 768, # Embedding dimension
     "n_heads": 12, # Number of attention heads
     "n_layers": 12, # Number of layers
@@ -19,7 +15,12 @@ GPT_CONFIG = {
     "qkv_bias": False # Query-Key-Value bias
 }
 
-torch.manual_seed(1337)
+train_ds = ProcessedDatasets().train
+test_ds = ProcessedDatasets().test
+vocab_size = ProcessedDatasets().vocab_size
+
+GPT_CONFIG["vocab_size"] = vocab_size # Vocabulary size
+GPT_CONFIG["context_length"] = train_ds.input_seq.shape[1] # Context length
 
 train_loader = DataLoader(
     dataset=train_ds,
