@@ -1,15 +1,12 @@
 import torch
 from torch.utils.data import Dataset
-from torch.utils.data import DataLoader
 
 import tiktoken
 
-import numpy as np
 import pandas as pd
 
 import os
 
-torch.manual_seed(1337)
 
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu:0')
 
@@ -70,18 +67,8 @@ class SeqTargetDataset(Dataset):
 train_ds = SeqTargetDataset(X=X_train,y=y_train)
 test_ds = SeqTargetDataset(X=X_test,y=y_test)
 
-train_loader = DataLoader(
-    dataset=train_ds,
-    batch_size=32,
-    shuffle=True,
-    drop_last=True,
-    num_workers=0
-)
 
-test_loader = DataLoader(
-    dataset=test_ds,
-    batch_size=32,
-    shuffle=False,
-    drop_last=True,
-    num_workers=0
-)
+class ProcessedDatasets(object):
+    def __init__(self):
+        self.train = train_ds
+        self.test = test_ds
