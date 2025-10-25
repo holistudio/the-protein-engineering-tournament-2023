@@ -43,13 +43,11 @@ max_seq_len = max(max([len(enc_seq) for enc_seq in X_train]), max([len(enc_seq) 
 
 X_train = seq_tensor(X_train, max_seq_len)
 X_test = seq_tensor(X_test, max_seq_len)
-
-print(X_train.shape, X_test.shape)
+# print(X_train.shape, X_test.shape)
 
 y_train = torch.tensor(train_df[target_cols].to_numpy())
 y_test  = torch.tensor(test_df[target_cols].to_numpy())
-
-print(y_train.shape, y_test.shape)
+# print(y_train.shape, y_test.shape)
 
 class SeqTargetDataset(Dataset):
     def __init__(self, X, y):
