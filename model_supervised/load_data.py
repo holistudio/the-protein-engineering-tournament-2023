@@ -27,7 +27,7 @@ def tokenize_seqs(data, encoding='gpt2'):
     seqs = data.to_numpy()
     tokenizer = tiktoken.get_encoding(encoding)
     enc_seqs = [tokenizer.encode(seq) for seq in seqs]
-    return enc_seqs
+    return enc_seqs, tokenizer.n_vocab
 
 def seq_tensor(enc_seqs, max_len):
     enc_seqs_tensor = torch.zeros((len(enc_seqs),max_seq_len), dtype=int, device=device)
@@ -36,8 +36,8 @@ def seq_tensor(enc_seqs, max_len):
             enc_seqs_tensor[i][j] = id
     return enc_seqs_tensor
 
-X_train = tokenize_seqs(train_df[input_cols])
-X_test  = tokenize_seqs(test_df[input_cols])
+X_train, vocab_size = tokenize_seqs(train_df[input_cols])
+X_test, _  = tokenize_seqs(test_df[input_cols])
 
 max_seq_len = max(max([len(enc_seq) for enc_seq in X_train]), max([len(enc_seq) for enc_seq in X_test]))
 
@@ -70,3 +70,4 @@ class ProcessedDatasets(object):
     def __init__(self):
         self.train = train_ds
         self.test = test_ds
+        self.vocab_size = vocab_size
