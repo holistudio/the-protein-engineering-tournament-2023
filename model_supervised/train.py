@@ -1,3 +1,5 @@
+import datetime
+
 import torch
 from torch.utils.data import DataLoader
 import torch.nn.functional as F
@@ -10,17 +12,17 @@ device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu:0')
 torch.manual_seed(1337)
 
 BATCH_SIZE = 32
-EPOCHS = 100 # 5_000
+EPOCHS = 1_000 # 5_000
 TRAIN_ITERS = 10
-EVAL_INTERVAL = 10 # 100
+EVAL_INTERVAL = 100
 EVAL_ITERS = 10 # 200
-LR = 1e-3
+LR = 3e-4
 
 GPT_CONFIG = {
     "emb_dim": 256, # 768, # Embedding dimension
-    "n_heads": 8, # 12, # Number of attention heads
-    "n_layers": 2, # 12, # Number of layers
-    "drop_rate": 0.1, # Dropout rate
+    "n_heads": 4, # 12, # Number of attention heads
+    "n_layers": 4, # 12, # Number of layers
+    "drop_rate": 0.01, # Dropout rate
     "qkv_bias": False # Query-Key-Value bias
 }
 
@@ -103,8 +105,9 @@ model.to(device)
 
 optimizer = torch.optim.AdamW(model.parameters(), lr=LR)
 
+start_time = datetime.datetime.now()
 for e in range(EPOCHS):
     if (e % EVAL_INTERVAL == 0) or (e == EPOCHS-1):
         losses = estimate_loss(model, train_loader, test_loader)
-        print(f"[Epoch {e}]  Train Loss={losses['train']:.2f}, Test Loss={losses['test']:.2f}")
+        print(f"{datetime.datetime.now() - start_time} | [Epoch {e}]  Train Loss={losses['train']:.2f}, Test Loss={losses['test']:.2f}")
     model = train_epoch(model, train_loader, optimizer)
