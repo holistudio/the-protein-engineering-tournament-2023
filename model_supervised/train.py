@@ -1,4 +1,6 @@
 import datetime
+import copy
+import json
 
 import torch
 from torch.utils.data import DataLoader
@@ -12,9 +14,9 @@ device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu:0')
 torch.manual_seed(1337)
 
 BATCH_SIZE = 32
-EPOCHS = 1_000 # 5_000
+EPOCHS = 100 # 1_000 # 5_000
 TRAIN_ITERS = 10
-EVAL_INTERVAL = 100
+EVAL_INTERVAL = 10 # 100
 EVAL_ITERS = 10 # 200
 LR = 3e-4
 
@@ -25,6 +27,8 @@ GPT_CONFIG = {
     "drop_rate": 0.01, # Dropout rate
     "qkv_bias": False # Query-Key-Value bias
 }
+
+FILE_PREFIX = f"GPT_emb{GPT_CONFIG['emb_dim']}_nh{GPT_CONFIG['n_heads']}_nl{GPT_CONFIG['n_layers']}"
 
 train_ds = ProcessedDatasets().train
 test_ds = ProcessedDatasets().test
@@ -93,9 +97,19 @@ model.to(device)
 
 optimizer = torch.optim.AdamW(model.parameters(), lr=LR)
 
+min_test_loss = float('inf')
+
 start_time = datetime.datetime.now()
 for e in range(EPOCHS):
     if (e % EVAL_INTERVAL == 0) or (e == EPOCHS-1):
         losses = estimate_loss(model, train_loader, test_loader)
         print(f"{datetime.datetime.now() - start_time} | [Epoch {e}]  Train Loss={losses['train']:.2f}, Test Loss={losses['test']:.2f}")
+        if losses['test'] < min_test_loss:
+            print('**NEW BEST MODEL**')
+            min_test_loss = losses['test']
+            best_model = copy.deepcopy(model)
     model = train_epoch(model, train_loader, optimizer)
+
+torch.save(best_model.state_dict(), f"{FILE_PREFIX}.pth.tar")
+with open(f"{FILE_PREFIX}_cfg.json", 'w') as f:
+    json.dump(GPT_CONFIG,f)
