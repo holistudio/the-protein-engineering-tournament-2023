@@ -45,8 +45,8 @@ X_train = seq_tensor(X_train, max_seq_len)
 X_test = seq_tensor(X_test, max_seq_len)
 # print(X_train.shape, X_test.shape)
 
-y_train = torch.tensor(train_df[target_cols].to_numpy())
-y_test  = torch.tensor(test_df[target_cols].to_numpy())
+y_train = torch.tensor(train_df[target_cols].to_numpy(), device=device)
+y_test  = torch.tensor(test_df[target_cols].to_numpy(), device=device)
 # print(y_train.shape, y_test.shape)
 
 class SeqTargetDataset(Dataset):
