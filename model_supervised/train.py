@@ -15,17 +15,10 @@ EVAL_INTERVAL = 10 # 100
 EVAL_ITERS = 10 # 200
 LR = 1e-3
 
-# GPT_CONFIG = {
-#     "emb_dim": 768, # Embedding dimension
-#     "n_heads": 12, # Number of attention heads
-#     "n_layers": 12, # Number of layers
-#     "drop_rate": 0.1, # Dropout rate
-#     "qkv_bias": False # Query-Key-Value bias
-# }
 GPT_CONFIG = {
-    "emb_dim": 256, # Embedding dimension
-    "n_heads": 8, # Number of attention heads
-    "n_layers": 2, # Number of layers
+    "emb_dim": 256, # 768, # Embedding dimension
+    "n_heads": 8, # 12, # Number of attention heads
+    "n_layers": 2, # 12, # Number of layers
     "drop_rate": 0.1, # Dropout rate
     "qkv_bias": False # Query-Key-Value bias
 }
@@ -53,11 +46,6 @@ test_loader = DataLoader(
     drop_last=True,
     num_workers=0
 )
-
-model = GPTModel(GPT_CONFIG)
-model.to(device)
-
-optimizer = torch.optim.AdamW(model.parameters(), lr=LR)
 
 def train_epoch(model, batch, optim):
     X, y = batch
@@ -103,6 +91,12 @@ def estimate_loss(model, train_dl, test_dl):
             losses[k] = loss.item()
         out[split] = losses.mean()
     return out
+
+
+model = GPTModel(GPT_CONFIG)
+model.to(device)
+
+optimizer = torch.optim.AdamW(model.parameters(), lr=LR)
 
 for e in range(EPOCHS):
     if (e % EVAL_INTERVAL == 0) or (e == EPOCHS-1):
