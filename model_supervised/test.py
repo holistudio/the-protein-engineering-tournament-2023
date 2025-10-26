@@ -22,6 +22,7 @@ model.to(device)
 model.load_state_dict(torch.load(f"{FILE_PREFIX}.pth.tar"))
 
 test_df = ProcessedDatasets().test_df
+# print(test_df.head())
 col_names = list(test_df.columns)
 input_cols = col_names[1]
 target_cols = col_names[2:]
@@ -53,10 +54,17 @@ def spearman_corr(pred, y):
 
 
 # give X_test to the model to predict preds
-preds = model(X_test)
+preds = model(X_test)[:, -1, :]
 
 # recover preds to real-world values
 preds = preds * std + mu
+
+# store preds in a dataframe similar to test_df
+preds_df = test_df.copy(deep=True)
+preds_np = preds.detach().cpu().numpy()
+preds_df.iloc[:, -3:] = preds_np
+preds_df.to_pickle(f"{FILE_PREFIX}_preds.pkl")
+# print(preds_df.head())
 
 print("Target, Spearman coeff")
 # for each column in tensors
@@ -64,8 +72,7 @@ for c in range(preds.shape[-1]):
     feature_vals = preds[:, c]
 
     # compute spearman coefficient
-    sp = spearman_corr(feature_vals, y_test)
+    sp = spearman_corr(feature_vals, y_test[:, c])
 
     print(f"{target_cols[c]}, {sp}")
 
-# TODO: store preds in a dataframe similar to test_df
