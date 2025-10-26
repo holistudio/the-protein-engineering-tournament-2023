@@ -10,15 +10,22 @@ device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu:0')
 torch.manual_seed(1337)
 
 BATCH_SIZE = 32
-EPOCHS = 5000
-EVAL_INTERVAL = 100
-EVAL_ITERS = 200
+EPOCHS = 100 # 5_000
+EVAL_INTERVAL = 10 # 100
+EVAL_ITERS = 10 # 200
 LR = 1e-3
 
+# GPT_CONFIG = {
+#     "emb_dim": 768, # Embedding dimension
+#     "n_heads": 12, # Number of attention heads
+#     "n_layers": 12, # Number of layers
+#     "drop_rate": 0.1, # Dropout rate
+#     "qkv_bias": False # Query-Key-Value bias
+# }
 GPT_CONFIG = {
-    "emb_dim": 768, # Embedding dimension
-    "n_heads": 12, # Number of attention heads
-    "n_layers": 12, # Number of layers
+    "emb_dim": 256, # Embedding dimension
+    "n_heads": 8, # Number of attention heads
+    "n_layers": 2, # Number of layers
     "drop_rate": 0.1, # Dropout rate
     "qkv_bias": False # Query-Key-Value bias
 }
@@ -64,7 +71,7 @@ def train_epoch(model, batch, optim):
     preds = preds[:, -1, :]
 
     # loss
-    loss = F.mse_loss(preds,y)
+    loss = F.mse_loss(preds.float(),y.float())
 
     # clear gradient
     optim.zero_grad()
@@ -92,13 +99,12 @@ def estimate_loss(model, train_dl, test_dl):
             X, y = next(iter(dl))
             preds = model(X)
             preds = preds[:, -1, :]
-            loss = F.mse_loss(preds,y)
+            loss = F.mse_loss(preds.float(),y.float())
             losses[k] = loss.item()
         out[split] = losses.mean()
     return out
 
 for e in range(EPOCHS):
-
     if (e % EVAL_INTERVAL == 0) or (e == EPOCHS-1):
         losses = estimate_loss(model, train_loader, test_loader)
         print(f"[Epoch {e}]  Train Loss={losses['train']:.2f}, Test Loss={losses['test']:.2f}")
