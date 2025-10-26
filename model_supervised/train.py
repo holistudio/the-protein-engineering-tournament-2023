@@ -2,6 +2,7 @@ import torch
 from torch.utils.data import DataLoader
 
 from load_data import ProcessedDatasets
+from gpt import GPTModel
 
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu:0')
 
@@ -21,6 +22,7 @@ vocab_size = ProcessedDatasets().vocab_size
 
 GPT_CONFIG["vocab_size"] = vocab_size # Vocabulary size
 GPT_CONFIG["context_length"] = train_ds.input_seq.shape[1] # Context length
+GPT_CONFIG["output_size"] = train_ds.targets.shape[1] # Output dimensions
 
 train_loader = DataLoader(
     dataset=train_ds,
@@ -37,3 +39,13 @@ test_loader = DataLoader(
     drop_last=True,
     num_workers=0
 )
+
+model = GPTModel(GPT_CONFIG)
+model.to(device)
+
+batch = next(iter(train_loader))
+
+pred = model(batch[0])[:, -1, :]
+
+print(pred.shape)
+print((pred-batch[1]).shape)
