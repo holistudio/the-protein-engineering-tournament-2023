@@ -27,9 +27,7 @@ GPT_CONFIG = {
 }
 
 train_ds = ProcessedDatasets().train
-# print(len(train_ds))
 test_ds = ProcessedDatasets().test
-# print(len(test_ds))
 vocab_size = ProcessedDatasets().vocab_size
 
 GPT_CONFIG["vocab_size"] = vocab_size # Vocabulary size
@@ -54,31 +52,21 @@ test_loader = DataLoader(
 
 def train_epoch(model, train_dl, optim):
     model.train()
-
     for i in range(TRAIN_ITERS):
-
         X, y = next(iter(train_dl))
-
         # forward pass
         preds = model(X)
-
         # last output only
         preds = preds[:, -1, :]
-
         # loss
         loss = F.mse_loss(preds.float(),y.float())
-
         # clear gradient
         optim.zero_grad()
-
         # backprop
         loss.backward()
-
         # optimizer step
         optim.step()
-
     model.eval()
-
     return model
 
 @torch.no_grad()
