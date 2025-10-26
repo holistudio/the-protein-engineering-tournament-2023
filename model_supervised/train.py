@@ -60,6 +60,9 @@ def train_epoch(model, batch, optim):
     # forward pass
     preds = model(X)
 
+    # last output only
+    preds = preds[:, -1, :]
+
     # loss
     loss = F.mse_loss(preds,y)
 
@@ -88,6 +91,7 @@ def estimate_loss(model, train_dl, test_dl):
         for k in range(EVAL_ITERS):
             X, y = next(iter(dl))
             preds = model(X)
+            preds = preds[:, -1, :]
             loss = F.mse_loss(preds,y)
             losses[k] = loss.item()
         out[split] = losses.mean()
