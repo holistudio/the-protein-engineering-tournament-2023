@@ -1,5 +1,6 @@
 import torch
 from torch.utils.data import DataLoader
+import torch.nn.functional as F
 
 from load_data import ProcessedDatasets
 from gpt import GPTModel
@@ -7,6 +8,12 @@ from gpt import GPTModel
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu:0')
 
 torch.manual_seed(1337)
+
+BATCH_SIZE = 32
+EPOCHS = 5000
+EVAL_INTERVAL = 100
+EVAL_ITERS = 200
+LR = 1e-3
 
 GPT_CONFIG = {
     "emb_dim": 768, # Embedding dimension
@@ -26,7 +33,7 @@ GPT_CONFIG["output_size"] = train_ds.targets.shape[1] # Output dimensions
 
 train_loader = DataLoader(
     dataset=train_ds,
-    batch_size=32,
+    batch_size=BATCH_SIZE,
     shuffle=True,
     drop_last=True,
     num_workers=0
@@ -34,7 +41,7 @@ train_loader = DataLoader(
 
 test_loader = DataLoader(
     dataset=test_ds,
-    batch_size=32,
+    batch_size=BATCH_SIZE,
     shuffle=True,
     drop_last=True,
     num_workers=0
@@ -43,9 +50,28 @@ test_loader = DataLoader(
 model = GPTModel(GPT_CONFIG)
 model.to(device)
 
-batch = next(iter(train_loader))
+optimizer = torch.optim.AdamW(model.parameters(), lr=LR)
 
-pred = model(batch[0])[:, -1, :]
+def train_epoch(model, batch, optim):
+    X, y = batch
 
-print(pred.shape)
-print((pred-batch[1]).shape)
+    model.train()
+
+    # forward pass
+    preds = model(X)
+
+    # loss
+    loss = F.mse_loss(preds,y)
+
+    # clear gradient
+    optim.zero_grad()
+
+    # backprop
+    loss.backward()
+
+    # optimizer step
+    optim.step()
+
+    model.eval()
+
+    return model
