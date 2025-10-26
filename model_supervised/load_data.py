@@ -79,4 +79,6 @@ class ProcessedDatasets(object):
     def __init__(self):
         self.train = train_ds
         self.test = test_ds
+        self.mu = mu_train
+        self.std = std_train
         self.vocab_size = vocab_size
