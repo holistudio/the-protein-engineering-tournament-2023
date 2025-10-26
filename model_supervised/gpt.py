@@ -136,7 +136,7 @@ class GPTModel(nn.Module):
         )
         self.final_norm = LayerNorm(cfg["emb_dim"])
         self.out_head = nn.Linear(
-            cfg["emb_dim"], cfg["vocab_size"], bias=False
+            cfg["emb_dim"], cfg["output_size"], bias=False
         )
     def forward(self, in_idx):
         batch_size, seq_len = in_idx.shape
