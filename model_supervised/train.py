@@ -11,6 +11,7 @@ torch.manual_seed(1337)
 
 BATCH_SIZE = 32
 EPOCHS = 100 # 5_000
+TRAIN_ITERS = 10
 EVAL_INTERVAL = 10 # 100
 EVAL_ITERS = 10 # 200
 LR = 1e-3
@@ -24,7 +25,9 @@ GPT_CONFIG = {
 }
 
 train_ds = ProcessedDatasets().train
+# print(len(train_ds))
 test_ds = ProcessedDatasets().test
+# print(len(test_ds))
 vocab_size = ProcessedDatasets().vocab_size
 
 GPT_CONFIG["vocab_size"] = vocab_size # Vocabulary size
@@ -47,28 +50,30 @@ test_loader = DataLoader(
     num_workers=0
 )
 
-def train_epoch(model, batch, optim):
-    X, y = batch
-
+def train_epoch(model, train_dl, optim):
     model.train()
 
-    # forward pass
-    preds = model(X)
+    for i in range(TRAIN_ITERS):
 
-    # last output only
-    preds = preds[:, -1, :]
+        X, y = next(iter(train_dl))
 
-    # loss
-    loss = F.mse_loss(preds.float(),y.float())
+        # forward pass
+        preds = model(X)
 
-    # clear gradient
-    optim.zero_grad()
+        # last output only
+        preds = preds[:, -1, :]
 
-    # backprop
-    loss.backward()
+        # loss
+        loss = F.mse_loss(preds.float(),y.float())
 
-    # optimizer step
-    optim.step()
+        # clear gradient
+        optim.zero_grad()
+
+        # backprop
+        loss.backward()
+
+        # optimizer step
+        optim.step()
 
     model.eval()
 
@@ -102,5 +107,4 @@ for e in range(EPOCHS):
     if (e % EVAL_INTERVAL == 0) or (e == EPOCHS-1):
         losses = estimate_loss(model, train_loader, test_loader)
         print(f"[Epoch {e}]  Train Loss={losses['train']:.2f}, Test Loss={losses['test']:.2f}")
-    batch = next(iter(train_loader))
-    model = train_epoch(model, batch, optimizer)
+    model = train_epoch(model, train_loader, optimizer)
