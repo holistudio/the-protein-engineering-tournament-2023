@@ -92,3 +92,11 @@ def estimate_loss(model, train_dl, test_dl):
             losses[k] = loss.item()
         out[split] = losses.mean()
     return out
+
+for e in range(EPOCHS):
+
+    if (e % EVAL_INTERVAL == 0) or (e == EPOCHS-1):
+        losses = estimate_loss(model, train_loader, test_loader)
+        print(f"[Epoch {e}]  Train Loss={losses['train']:.2f}, Test Loss={losses['test']:.2f}")
+    batch = next(iter(train_loader))
+    model = train_epoch(model, batch, optimizer)
