@@ -75,3 +75,20 @@ def train_epoch(model, batch, optim):
     model.eval()
 
     return model
+
+@torch.no_grad()
+def estimate_loss(model, train_dl, test_dl):
+    out = {}
+    for split in ['train', 'test']:
+        if split == 'train':
+            dl = train_dl
+        else:
+            dl = test_dl
+        losses = torch.zeros(EVAL_ITERS)
+        for k in range(EVAL_ITERS):
+            X, y = next(iter(dl))
+            preds = model(X)
+            loss = F.mse_loss(preds,y)
+            losses[k] = loss.item()
+        out[split] = losses.mean()
+    return out
