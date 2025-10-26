@@ -7,6 +7,7 @@ import pandas as pd
 
 import os
 
+MECMUP_FILTER = False
 
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu:0')
 
@@ -50,6 +51,12 @@ X_test = seq_tensor(X_test, max_seq_len)
 y_train = torch.tensor(train_df[target_cols].to_numpy(), device=device, dtype=float)
 y_test  = torch.tensor(test_df[target_cols].to_numpy(), device=device, dtype=float)
 # print(y_train.shape, y_test.shape)
+
+mu_train = y_train.mean(dim=0)
+std_train = y_train.std(dim=0)
+
+y_train = (y_train - mu_train) / std_train
+y_test = (y_test - mu_train) / std_train # since test mean and std are not known
 
 class SeqTargetDataset(Dataset):
     def __init__(self, X, y):
