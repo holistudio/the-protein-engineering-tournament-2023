@@ -20,6 +20,7 @@ with open(f"{FILE_PREFIX}_cfg.json", 'r') as f:
 model = GPTModel(GPT_CONFIG)
 model.to(device)
 model.load_state_dict(torch.load(f"{FILE_PREFIX}.pth.tar"))
+model.eval()
 
 test_df = ProcessedDatasets().test_df
 # print(test_df.head())
@@ -52,9 +53,9 @@ def spearman_corr(pred, y):
     # Pearson correlation of ranks
     return (pred_rank * y_rank).mean()
 
-
-# give X_test to the model to predict preds
-preds = model(X_test)[:, -1, :]
+with torch.no_grad():
+    # give X_test to the model to predict preds
+    preds = model(X_test)[:, -1, :]
 
 # recover preds to real-world values
 preds = preds * std + mu
@@ -63,7 +64,7 @@ preds = preds * std + mu
 preds_df = test_df.copy(deep=True)
 preds_np = preds.detach().cpu().numpy()
 preds_df.iloc[:, -3:] = preds_np
-preds_df.to_pickle(f"{FILE_PREFIX}_preds.pkl")
+preds_df.to_pickle(f"{FILE_PREFIX}_preds_test.pkl")
 # print(preds_df.head())
 
 print("Target, Spearman coeff")
