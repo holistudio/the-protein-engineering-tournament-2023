@@ -23,6 +23,8 @@ col_names = list(train_df.columns)
 input_cols = col_names[1]
 target_cols = col_names[2:]
 
+# TODO: filter train_df so that only records with ['methyl phosphodiester (MecMUP)'] < 75
+
 def tokenize_seqs(data, encoding='gpt2'):
     seqs = data.to_numpy()
     tokenizer = tiktoken.get_encoding(encoding)
